@@ -17,9 +17,6 @@ use Magento\Backend\Model\View\Result\Redirect;
 use Magento\Framework\App\Request\DataPersistorInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Exception\LocalizedException;
-use Magento\Catalog\Model\ImageUploader;
-use Magento\Framework\Filesystem\Directory\WriteInterface;
-use Magento\MediaStorage\Model\File\UploaderFactory;
 
 /**
  * Class Save
@@ -34,38 +31,14 @@ class Save extends Action
     protected $dataPersistor;
 
     /**
-     * @var ImageUploader
-     */
-    protected $imageUploader;
-
-    /**
-     * @var WriteInterface
-     */
-    protected $mediaDirectory;
-
-    /**
-     * @var UploaderFactory
-     */
-    protected $uploaderFactory;
-
-    /**
      * @param Context                $context
      * @param DataPersistorInterface $dataPersistor
-     * @param ImageUploader          $imageUploader
-     * @param WriteInterface         $mediaDirectory
-     * @param UploaderFactory        $uploaderFactory
      */
     public function __construct(
         Context $context,
-        DataPersistorInterface $dataPersistor,
-        ImageUploader $imageUploader,
-        WriteInterface $mediaDirectory,
-        UploaderFactory $uploaderFactory
+        DataPersistorInterface $dataPersistor
     ) {
         $this->dataPersistor = $dataPersistor;
-        $this->imageUploader = $imageUploader;
-        $this->mediaDirectory = $mediaDirectory;
-        $this->uploaderFactory = $uploaderFactory;
         parent::__construct($context);
     }
 
@@ -73,7 +46,7 @@ class Save extends Action
      * Save action
      *
      * @return ResultInterface
-     * @throws LocalizedException|Exception
+     * @throws LocalizedException
      */
     public function execute()
     {

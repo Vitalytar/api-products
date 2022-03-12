@@ -39,15 +39,4 @@
             </argument>
         </arguments>
     </type>
-    <virtualType name="Custom\ApiProducts\ThumbnailUpload" type="Magento\Catalog\Model\ImageUploader">
-        <arguments>
-            <argument name="baseTmpPath" xsi:type="string">apiproducts/tmp/image</argument>
-            <argument name="basePath" xsi:type="string">apiproducts/image</argument>
-            <argument name="allowedExtensions" xsi:type="array">
-                <item name="jpg" xsi:type="string">jpg</item>
-                <item name="jpeg" xsi:type="string">jpeg</item>
-                <item name="png" xsi:type="string">png</item>
-            </argument>
-        </arguments>
-    </virtualType>
 </config>
