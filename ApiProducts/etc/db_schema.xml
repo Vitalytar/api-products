@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category Custom
+ * @package  Custom_ApiProducts
+ * @author   Vitalijs Visnakovs <vitalijs.visnakovs@gmail.com>
+ */
+-->
+<schema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:Setup/Declaration/Schema/etc/schema.xsd">
+    <table name="custom_apiproducts_apiproducts" resource="default" engine="innodb" comment="custom_apiproducts_apiproducts Table">
+		<column xsi:type="int" name="apiproducts_id" padding="10" unsigned="true" nullable="false" identity="true" comment="Entity Id"/>
+		<constraint xsi:type="primary" referenceId="PRIMARY">
+			<column name="apiproducts_id"/>
+		</constraint>
+		<column name="product_uuid" nullable="true" xsi:type="varchar" comment="product_uuid" length="255"/>
+		<column name="property_type_id" nullable="true" xsi:type="int" comment="property_type_id" identity="false"/>
+		<column name="county" nullable="true" xsi:type="varchar" comment="county" length="255"/>
+		<column name="country" nullable="true" xsi:type="varchar" comment="country" length="255"/>
+		<column name="town" nullable="true" xsi:type="varchar" comment="town" length="255"/>
+		<column name="description" nullable="true" xsi:type="text" comment="description"/>
+		<column name="address" nullable="true" xsi:type="varchar" comment="address" length="255"/>
+		<column name="image_full" nullable="true" xsi:type="varchar" comment="image_full" length="255"/>
+		<column name="image_thumbnail" nullable="true" xsi:type="varchar" comment="image_thumbnail" length="255"/>
+		<column name="latitude" nullable="true" xsi:type="decimal" comment="latitude" precision="12" scale="4"/>
+		<column name="longitude" nullable="true" xsi:type="decimal" comment="longitude" precision="12" scale="4"/>
+		<column name="num_bedrooms" nullable="true" xsi:type="int" comment="num_bedrooms" identity="false"/>
+		<column name="num_bathrooms" nullable="true" xsi:type="text" comment="num_bathrooms"/>
+		<column name="price" nullable="true" xsi:type="decimal" comment="price" precision="12" scale="4"/>
+		<column name="type" nullable="true" xsi:type="varchar" comment="type" length="255"/>
+		<column name="created_at" xsi:type="datetime" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
+		<column name="updated_at" xsi:type="datetime" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
+		<column name="property_type_title" nullable="true" xsi:type="varchar" comment="property_type_title" length="255"/>
+		<column name="property_type_description" nullable="true" xsi:type="text" comment="property_type_description"/>
+		<column name="property_type_created_at" xsi:type="datetime" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
+		<column name="property_type_updated_at" xsi:type="datetime" on_update="false" nullable="false" default="CURRENT_TIMESTAMP"/>
+	</table>
+</schema>

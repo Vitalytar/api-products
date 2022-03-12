@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category Custom
+ * @package  Custom_ApiProducts
+ * @author   Vitalijs Visnakovs <vitalijs.visnakovs@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Backend:etc/menu.xsd">
+    <menu>
+        <add id="Custom::top_level"
+             title="API Custom Products"
+             module="Custom_ApiProducts"
+             sortOrder="50"
+             resource="Magento_Backend::content"/>
+        <add id="Custom_ApiProducts::custom_apiproducts_apiproducts"
+             title="API Products List"
+             module="Custom_ApiProducts"
+             sortOrder="5"
+             resource="Magento_Backend::content"
+             parent="Custom::top_level"
+             action="custom_apiproducts/apiproducts/index"/>
+    </menu>
+</config>

@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category Custom
+ * @package  Custom_ApiProducts
+ * @author   Vitalijs Visnakovs <vitalijs.visnakovs@gmail.com>
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
+    <type name="Magento\Framework\Console\CommandList">
+        <arguments>
+            <argument name="commands" xsi:type="array">
+                <item name="getApiProducts" xsi:type="object">Custom\ApiProducts\Console\GetProducts</item>
+            </argument>
+        </arguments>
+    </type>
+    <preference for="Custom\ApiProducts\Api\ApiProductsRepositoryInterface"
+                type="Custom\ApiProducts\Model\ApiProductsRepository"/>
+    <preference for="Custom\ApiProducts\Api\Data\ApiProductsInterface"
+                type="Custom\ApiProducts\Model\Data\ApiProducts"/>
+    <preference for="Custom\ApiProducts\Api\Data\ApiProductsSearchResultsInterface"
+                type="Magento\Framework\Api\SearchResults"/>
+    <virtualType name="Custom\ApiProducts\Model\ResourceModel\ApiProducts\Grid\Collection"
+                 type="Magento\Framework\View\Element\UiComponent\DataProvider\SearchResult">
+        <arguments>
+            <argument name="mainTable" xsi:type="string">custom_apiproducts_apiproducts</argument>
+            <argument name="resourceModel" xsi:type="string">
+                Custom\ApiProducts\Model\ResourceModel\ApiProducts\Collection
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="custom_apiproducts_apiproducts_listing_data_source" xsi:type="string">
+                    Custom\ApiProducts\Model\ResourceModel\ApiProducts\Grid\Collection
+                </item>
+            </argument>
+        </arguments>
+    </type>
+    <virtualType name="Custom\ApiProducts\ThumbnailUpload" type="Magento\Catalog\Model\ImageUploader">
+        <arguments>
+            <argument name="baseTmpPath" xsi:type="string">apiproducts/tmp/image</argument>
+            <argument name="basePath" xsi:type="string">apiproducts/image</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+</config>

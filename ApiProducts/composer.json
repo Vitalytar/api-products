@@ -1,0 +1,22 @@
+{
+    "name": "custom/module-apiproducts",
+    "description": "Parse products from the API",
+    "type": "magento2-module",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Vitalijs Visnakovs",
+            "email": "vitalijs.visnakovs@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {},
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "Custom\\ApiProducts\\": ""
+        }
+    }
+}

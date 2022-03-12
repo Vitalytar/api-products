@@ -1,0 +1,359 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @category  Custom
+ * @package   Custom_ApiProducts
+ * @author    Vitalijs Visnakovs <vitalijs.visnakovs@gmail.com>
+ */
+-->
+<listing xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
+		<item name="js_config" xsi:type="array">
+			<item name="provider" xsi:type="string">custom_apiproducts_apiproducts_listing.custom_apiproducts_apiproducts_listing_data_source</item>
+		</item>
+	</argument>
+	<settings>
+		<spinner>custom_apiproducts_apiproducts_columns</spinner>
+		<deps>
+			<dep>custom_apiproducts_apiproducts_listing.custom_apiproducts_apiproducts_listing_data_source</dep>
+		</deps>
+		<buttons>
+			<button name="add">
+				<url path="*/*/new"/>
+				<class>primary</class>
+				<label translate="true">Add New Product</label>
+			</button>
+		</buttons>
+	</settings>
+	<dataSource name="custom_apiproducts_apiproducts_listing_data_source" component="Magento_Ui/js/grid/provider">
+		<settings>
+			<storageConfig>
+				<param name="indexField" xsi:type="string">apiproducts_id</param>
+			</storageConfig>
+			<updateUrl path="mui/index/render"/>
+		</settings>
+		<aclResource>Custom_ApiProducts::ApiProducts</aclResource>
+		<dataProvider name="custom_apiproducts_apiproducts_listing_data_source" class="Magento\Framework\View\Element\UiComponent\DataProvider\DataProvider">
+			<settings>
+				<requestFieldName>id</requestFieldName>
+				<primaryFieldName>apiproducts_id</primaryFieldName>
+			</settings>
+		</dataProvider>
+	</dataSource>
+	<listingToolbar name="listing_top">
+		<settings>
+			<sticky>true</sticky>
+		</settings>
+		<bookmark name="bookmarks"/>
+		<columnsControls name="columns_controls"/>
+		<filters name="listing_filters"/>
+		<paging name="listing_paging"/>
+	</listingToolbar>
+	<columns name="custom_apiproducts_apiproducts_columns">
+		<settings>
+			<editorConfig>
+				<param name="selectProvider" xsi:type="string">custom_apiproducts_apiproducts_listing.custom_apiproducts_apiproducts_listing.custom_apiproducts_apiproducts_columns.ids</param>
+				<param name="enabled" xsi:type="boolean">true</param>
+				<param name="indexField" xsi:type="string">apiproducts_id</param>
+				<param name="clientConfig" xsi:type="array">
+					<item name="saveUrl" xsi:type="url" path="custom_apiproducts/ApiProducts/inlineEdit"/>
+					<item name="validateBeforeSave" xsi:type="boolean">false</item>
+				</param>
+			</editorConfig>
+			<childDefaults>
+				<param name="fieldAction" xsi:type="array">
+					<item name="provider" xsi:type="string">custom_apiproducts_apiproducts_listing.custom_apiproducts_apiproducts_listing.custom_apiproducts_apiproducts_columns_editor</item>
+					<item name="target" xsi:type="string">startEdit</item>
+					<item name="params" xsi:type="array">
+						<item name="0" xsi:type="string">${ $.$data.rowIndex }</item>
+						<item name="1" xsi:type="boolean">true</item>
+					</item>
+				</param>
+			</childDefaults>
+		</settings>
+		<selectionsColumn name="ids">
+			<settings>
+				<indexField>apiproducts_id</indexField>
+			</settings>
+		</selectionsColumn>
+		<column name="apiproducts_id">
+			<settings>
+				<filter>text</filter>
+				<sorting>asc</sorting>
+				<label translate="true">ID</label>
+			</settings>
+		</column>
+		<column name="product_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">product_id</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+        <column name="image_thumbnail">
+            <settings>
+                <filter>text</filter>
+                <label translate="true">Thumbnail</label>
+                <editor>
+                    <editorType>text</editorType>
+                    <validation>
+                        <rule name="required-entry" xsi:type="boolean">false</rule>
+                    </validation>
+                </editor>
+            </settings>
+        </column>
+		<column name="product_uuid">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Product UUID</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="property_type_id">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Property Type ID</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="county">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">County</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="country">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Country</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="town">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Town</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="description">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Description</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="address">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Address</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="image_full">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Full Image</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="latitude">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Latitude</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="longitude">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Longitude</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="num_bedrooms">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Number Of Bedrooms</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="num_bathrooms">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Number Of Bathrooms</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="price">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Price</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="type">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Type</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="created_at">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Created At</label>
+				<editor>
+					<editorType>date</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="updated_at">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Updated At</label>
+				<editor>
+					<editorType>date</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="property_type_title">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Property Type (Title)</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="property_type_description">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Property Type (Description)</label>
+				<editor>
+					<editorType>text</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="property_type_created_at">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Property Type (Created At)</label>
+				<editor>
+					<editorType>date</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+		<column name="property_type_updated_at">
+			<settings>
+				<filter>text</filter>
+				<label translate="true">Property Type (Updated At)</label>
+				<editor>
+					<editorType>date</editorType>
+					<validation>
+						<rule name="required-entry" xsi:type="boolean">false</rule>
+					</validation>
+				</editor>
+			</settings>
+		</column>
+        <actionsColumn name="actions" class="Custom\ApiProducts\Ui\Component\Listing\Column\ApiProductsActions">
+            <settings>
+                <indexField>apiproducts_id</indexField>
+                <resizeEnabled>false</resizeEnabled>
+                <resizeDefaultWidth>107</resizeDefaultWidth>
+            </settings>
+        </actionsColumn>
+	</columns>
+</listing>
