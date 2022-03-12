@@ -228,7 +228,7 @@
 				</validation>
 			</settings>
 		</field>
-		<field name="num_bathrooms" formElement="textarea" sortOrder="140">
+		<field name="num_bathrooms" formElement="input" sortOrder="140">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">ApiProducts</item>
