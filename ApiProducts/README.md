@@ -1,4 +1,6 @@
 # API products parse
+Module should be placed - app/code/Custom/ApiProducts
+
 To parse products from the API, execute following command in CLI
 - bin/magento apiproducts:import
 

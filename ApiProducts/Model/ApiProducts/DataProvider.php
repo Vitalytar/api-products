@@ -86,6 +86,20 @@ class DataProvider extends AbstractDataProvider
 
         foreach ($items as $model) {
             $this->loadedData[$model->getId()] = $model->getData();
+
+            if ($model->getImageFull()) {
+                $imgData['image_full'][0]['name'] = $model->getImageFull();
+                $imgData['image_full'][0]['url'] = $this->getMediaUrl() . $model->getImageFull();
+                $fullData = $this->loadedData;
+                $this->loadedData[$model->getId()] = array_merge($fullData[$model->getId()], $imgData);
+            }
+
+            if ($model->getImageThumbnail()) {
+                $imgData['image_thumbnail'][0]['name'] = $model->getImageThumbnail();
+                $imgData['image_thumbnail'][0]['url'] = $this->getMediaUrl() . $model->getImageThumbnail();
+                $fullData = $this->loadedData;
+                $this->loadedData[$model->getId()] = array_merge($fullData[$model->getId()], $imgData);
+            }
         }
 
         $data = $this->dataPersistor->get('custom_apiproducts_apiproducts');
@@ -98,5 +112,12 @@ class DataProvider extends AbstractDataProvider
         }
 
         return $this->loadedData;
+    }
+
+    public function getMediaUrl()
+    {
+        // requestaquote is IMAGE_UPLOAD_DIRECTORY name.
+        return $this->storeManager->getStore()
+                ->getBaseUrl(\Magento\Framework\UrlInterface::URL_TYPE_MEDIA) . 'image_full/';
     }
 }

@@ -9,14 +9,21 @@ declare(strict_types=1);
 
 namespace Custom\ApiProducts\Console;
 
+use Custom\ApiProducts\Api\Data\ApiProductsInterface;
 use Custom\ApiProducts\Model\ApiProductsFactory;
 use Custom\ApiProducts\Model\ResourceModel\ApiProducts;
+use Magento\Framework\Exception\FileSystemException;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\HTTP\Client\Curl;
 use Symfony\Component\Console\Input\InputOption;
+use Custom\ApiProducts\Model\ApiProductsRepository;
+use Magento\Framework\App\Filesystem\DirectoryList;
+use Magento\Framework\Api\SearchCriteriaBuilder;
+use Custom\ApiProducts\Model\ResourceModel\ApiProducts as ResourceApiProducts;
+use Magento\Framework\Api\ExtensibleDataObjectConverter;
 
 /**
  * Class GetProducts
@@ -48,27 +55,67 @@ class GetProducts extends Command
     /**
      * @var ApiProducts
      */
+    protected $apiProducts;
+
+    /**
+     * @var ApiProductsRepository
+     */
     protected $apiProductsRepository;
 
     /**
-     * @param ScopeConfigInterface $scopeConfig
-     * @param Curl                 $curl
-     * @param ApiProductsFactory   $apiProductsFactory
-     * @param ApiProducts          $apiProductsRepository
-     * @param string|null          $name
+     * @var DirectoryList
+     */
+    protected $directoryList;
+
+    /**
+     * @var SearchCriteriaBuilder
+     */
+    protected $searchCriteriaBuilder;
+
+    /**
+     * @var ResourceApiProducts
+     */
+    protected $resource;
+
+    /**
+     * @var ExtensibleDataObjectConverter
+     */
+    protected $extensibleDataObjectConverter;
+
+    /**
+     * @param ScopeConfigInterface          $scopeConfig
+     * @param Curl                          $curl
+     * @param ApiProductsFactory            $apiProductsFactory
+     * @param ApiProducts                   $apiProducts
+     * @param ApiProductsRepository         $apiProductsRepository
+     * @param DirectoryList                 $directoryList
+     * @param SearchCriteriaBuilder         $searchCriteriaBuilder
+     * @param ResourceApiProducts           $resource
+     * @param ExtensibleDataObjectConverter $extensibleDataObjectConverter
+     * @param string|null                   $name
      */
     public function __construct(
         ScopeConfigInterface $scopeConfig,
         Curl $curl,
         ApiProductsFactory $apiProductsFactory,
-        ApiProducts $apiProductsRepository,
+        ApiProducts $apiProducts,
+        ApiProductsRepository $apiProductsRepository,
+        DirectoryList $directoryList,
+        SearchCriteriaBuilder $searchCriteriaBuilder,
+        ResourceApiProducts $resource,
+        ExtensibleDataObjectConverter $extensibleDataObjectConverter,
         string $name = null
     ) {
         parent::__construct($name);
         $this->scopeConfig = $scopeConfig;
         $this->curl = $curl;
         $this->apiProductsFactory = $apiProductsFactory;
+        $this->apiProducts = $apiProducts;
         $this->apiProductsRepository = $apiProductsRepository;
+        $this->searchCriteriaBuilder = $searchCriteriaBuilder;
+        $this->directoryList = $directoryList;
+        $this->resource = $resource;
+        $this->extensibleDataObjectConverter = $extensibleDataObjectConverter;
     }
 
     /**
@@ -141,20 +188,45 @@ class GetProducts extends Command
                     'property_type_created_at' => $product['property_type']['created_at'],
                     'property_type_updated_at' => $product['property_type']['updated_at']
                 ]);
+
                 try {
-                    $this->apiProductsRepository->save($prod);
-                    $output->writeln(
-                        'Successfully saved a product. Product UUID - ' . $product['uuid']
+                    $fullImageName = parse_url($product['image_full'])['query'] . '.png';
+                    $thumbnailImageName = parse_url($product['image_thumbnail'])['query'] . '.png';
+                    $prod->setImageFull($fullImageName);
+                    $prod->setImageThumbnail($thumbnailImageName);
+                    $this->saveImage($product['image_full'], $fullImageName);
+                    $this->saveImage(
+                        $product['image_thumbnail'],
+                        $thumbnailImageName
                     );
+                    $this->apiProducts->save($prod);
                 } catch (\Exception $e) {
                     $output->writeln(
-                        'Something went wrong when saving a product. Product UUID - ' . $product['uuid']
+                        'Something went wrong when saving a product. Product UUID - '
+                        . $product['uuid']
                     );
                 }
+
+                $output->writeln(
+                    'Successfully saved a product. Product UUID - '
+                    . $product['uuid']
+                );
             }
         }
 
         $output->writeln('Test message CLI');
+    }
+
+    /**
+     * @param $imageUrl
+     * @param $imageName
+     *
+     * @return void
+     * @throws FileSystemException
+     */
+    public function saveImage($imageUrl, $imageName): void
+    {
+        copy($imageUrl, $this->directoryList->getPath('media') . '/image_full/' . $imageName);
     }
 
     /**

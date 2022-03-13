@@ -39,4 +39,21 @@
             </argument>
         </arguments>
     </type>
+
+    <virtualType name="Custom\ApiProducts\ImageUploader" type="Custom\ApiProducts\Model\ImageUploader">
+        <arguments>
+            <argument name="basePath" xsi:type="const">Custom\ApiProducts\Model\ImageUploader::IMAGE_BASE_PATH</argument>
+            <argument name="allowedExtensions" xsi:type="array">
+                <item name="jpg" xsi:type="string">jpg</item>
+                <item name="jpeg" xsi:type="string">jpeg</item>
+                <item name="gif" xsi:type="string">gif</item>
+                <item name="png" xsi:type="string">png</item>
+            </argument>
+        </arguments>
+    </virtualType>
+    <type name="Custom\ApiProducts\Controller\Adminhtml\ApiProducts\Uploader">
+        <arguments>
+            <argument name="uploader" xsi:type="object">Custom\ApiProducts\ImageUploader</argument>
+        </arguments>
+    </type>
 </config>

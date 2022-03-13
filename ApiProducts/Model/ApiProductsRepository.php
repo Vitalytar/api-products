@@ -125,7 +125,7 @@ class ApiProductsRepository implements ApiProductsRepositoryInterface
      * @return ApiProductsInterface
      * @throws CouldNotSaveException
      */
-    public function save(ApiProductsInterface $apiProducts): ApiProductsInterface
+    public function save(ApiProductsInterface $apiProducts)
     {
         $apiProductsData = $this->extensibleDataObjectConverter->toNestedArray(
             $apiProducts,
@@ -152,7 +152,7 @@ class ApiProductsRepository implements ApiProductsRepositoryInterface
      * @return ApiProductsInterface
      * @throws NoSuchEntityException
      */
-    public function get($apiProductsId): ApiProductsInterface
+    public function get($apiProductsId)
     {
         $apiProducts = $this->apiProductsFactory->create();
         $this->resource->load($apiProducts, $apiProductsId);
@@ -169,7 +169,7 @@ class ApiProductsRepository implements ApiProductsRepositoryInterface
      *
      * @return ApiProductsSearchResultsInterface
      */
-    public function getList(SearchCriteriaInterface $criteria): ApiProductsSearchResultsInterface
+    public function getList(SearchCriteriaInterface $criteria)
     {
         $collection = $this->apiProductsCollectionFactory->create();
         $this->extensionAttributesJoinProcessor->process(

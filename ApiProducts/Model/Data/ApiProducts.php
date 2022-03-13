@@ -66,29 +66,6 @@ class ApiProducts extends AbstractExtensibleObject implements
     }
 
     /**
-     * Retrieve existing extension attributes object or create a new one.
-     *
-     * @return ApiProductsExtensionInterface|null
-     */
-    public function getExtensionAttributes(): ?ApiProductsExtensionInterface
-    {
-        return $this->_getExtensionAttributes();
-    }
-
-    /**
-     * Set an extension attributes object.
-     *
-     * @param ApiProductsExtensionInterface $extensionAttributes
-     *
-     * @return $this
-     */
-    public function setExtensionAttributes(
-        ApiProductsExtensionInterface $extensionAttributes
-    ): ApiProducts {
-        return $this->_setExtensionAttributes($extensionAttributes);
-    }
-
-    /**
      * Get product_uuid
      *
      * @return string|null

@@ -7,8 +7,8 @@
  */
 -->
 <form xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	  xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
-	<argument name="data" xsi:type="array">
+      xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Ui:etc/ui_configuration.xsd">
+    <argument name="data" xsi:type="array">
 		<item name="js_config" xsi:type="array">
 			<item name="provider" xsi:type="string">custom_apiproducts_apiproducts_form.apiproducts_form_data_source</item>
 		</item>
@@ -153,37 +153,71 @@
 				</validation>
 			</settings>
 		</field>
-		<field name="image_full" formElement="input" sortOrder="90">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">ApiProducts</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">Full Image</label>
-				<dataScope>image_full</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field name="image_thumbnail" formElement="input" sortOrder="100">
-			<argument name="data" xsi:type="array">
-				<item name="config" xsi:type="array">
-					<item name="source" xsi:type="string">ApiProducts</item>
-				</item>
-			</argument>
-			<settings>
-				<dataType>text</dataType>
-				<label translate="true">Thumbnail</label>
-				<dataScope>image_thumbnail</dataScope>
-				<validation>
-					<rule name="required-entry" xsi:type="boolean">false</rule>
-				</validation>
-			</settings>
-		</field>
-		<field name="latitude" formElement="input" sortOrder="110">
+        <field name="image_full" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">ApiProducts</item>
+                </item>
+            </argument>
+            <settings>
+                <notice translate="true">Allowed file types: jpeg, gif, png.</notice>
+                <label translate="true">Full Image</label>
+                <dataType>text</dataType>
+                <dataScope>image_full</dataScope>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <visible>true</visible>
+                <required>false</required>
+                <componentType>imageUploader</componentType>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="string" name="url">custom_apiproducts/apiproducts/uploader</param>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>image_full</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg gif png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="image_thumbnail" formElement="imageUploader">
+            <argument name="data" xsi:type="array">
+                <item name="config" xsi:type="array">
+                    <item name="source" xsi:type="string">ApiProducts</item>
+                </item>
+            </argument>
+            <settings>
+                <notice translate="true">Allowed file types: jpg, jpeg, png.</notice>
+                <label translate="true">Thumbnail</label>
+                <dataType>text</dataType>
+                <dataScope>image_thumbnail</dataScope>
+                <elementTmpl>ui/form/element/uploader/image</elementTmpl>
+                <visible>true</visible>
+                <required>false</required>
+                <componentType>imageUploader</componentType>
+            </settings>
+            <formElements>
+                <imageUploader>
+                    <settings>
+                        <required>false</required>
+                        <uploaderConfig>
+                            <param xsi:type="string" name="url">custom_apiproducts/apiproducts/uploader</param>
+                        </uploaderConfig>
+                        <previewTmpl>Magento_Catalog/image-preview</previewTmpl>
+                        <openDialogTitle>Media Gallery</openDialogTitle>
+                        <initialMediaGalleryOpenSubpath>image_thumbnail</initialMediaGalleryOpenSubpath>
+                        <allowedExtensions>jpg jpeg png</allowedExtensions>
+                        <maxFileSize>4194304</maxFileSize>
+                    </settings>
+                </imageUploader>
+            </formElements>
+        </field>
+        <field name="latitude" formElement="input" sortOrder="110">
 			<argument name="data" xsi:type="array">
 				<item name="config" xsi:type="array">
 					<item name="source" xsi:type="string">ApiProducts</item>

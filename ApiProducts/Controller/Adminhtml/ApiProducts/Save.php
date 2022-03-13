@@ -64,6 +64,18 @@ class Save extends Action
                 return $resultRedirect->setPath('*/*/');
             }
 
+            if (isset($data['image_full'][0]['name'])) {
+                $data['image_full'] = $data['image_full'][0]['name'];
+            } else {
+                $data['image_full'] = null;
+            }
+
+            if (isset($data['image_thumbnail'][0]['name'])) {
+                $data['image_thumbnail'] = $data['image_thumbnail'][0]['name'];
+            } else {
+                $data['image_thumbnail'] = null;
+            }
+
             $model->setData($data);
 
             try {
